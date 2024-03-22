@@ -7,7 +7,7 @@ test("normalize url", () => {
   const actual = normalizeUrl(input);
   expect(actual).toBe(expected);
 });
-test("getURLsFromHTML", () => {
+test("getURLsFromHTML absolute url", () => {
   const htmlBody = `
   <!DOCTYPE html>
   <body>
@@ -21,6 +21,23 @@ test("getURLsFromHTML", () => {
 </html>`;
   const baseUrl = "https://boot.dev";
   const expected = ["https://boot.dev/"];
+  const actual = getURLsFromHTML(htmlBody, baseUrl);
+  expect(actual).toStrictEqual(expected);
+});
+test("getURLsFromHTML relative url", () => {
+  const htmlBody = `
+  <!DOCTYPE html>
+  <body>
+    <p id="main">
+      My First JSDOM!
+    </p>
+    <a href="/tracks/backend">
+      Tracks Backend
+    </a>
+  </body>
+</html>`;
+  const baseUrl = "https://boot.dev";
+  const expected = ["https://boot.dev/tracks/backend"];
   const actual = getURLsFromHTML(htmlBody, baseUrl);
   expect(actual).toStrictEqual(expected);
 });

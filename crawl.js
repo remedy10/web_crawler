@@ -10,7 +10,13 @@ function getURLsFromHTML(htmlBody, baseUrl) {
   arrUrl = [];
   const dom = new JSDOM(htmlBody);
   const elements = dom.window.document.querySelectorAll("a");
-  elements.forEach((element) => arrUrl.push(element.href));
+  for (const element of elements) {
+    if (element.href.includes("https") || element.href.includes("http")) {
+      arrUrl.push(element.href);
+    } else {
+      arrUrl.push(`${baseUrl}${element.href}`);
+    }
+  }
   return arrUrl;
 }
 module.exports = {
