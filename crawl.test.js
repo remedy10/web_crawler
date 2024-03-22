@@ -1,8 +1,26 @@
 const { test, expect } = require("@jest/globals");
-const { normalizeUrl } = require("./crawl.js");
+const { normalizeUrl, getURLsFromHTML } = require("./crawl.js");
 
 test("normalize url", () => {
-  expect(normalizeUrl("https://blog.boot.dev/path/")).toBe(
-    "blog.boot.dev/path/"
-  );
+  const input = "https://blog.boot.dev/path/";
+  const expected = "blog.boot.dev/path";
+  const actual = normalizeUrl(input);
+  expect(actual).toBe(expected);
+});
+test("getURLsFromHTML", () => {
+  const htmlBody = `
+  <!DOCTYPE html>
+  <body>
+    <p id="main">
+      My First JSDOM!
+    </p>
+    <a href="https://boot.dev/">
+      Learn Backend Development
+    </a>
+  </body>
+</html>`;
+  const baseUrl = "https://boot.dev";
+  const expected = ["https://boot.dev/"];
+  const actual = getURLsFromHTML(htmlBody, baseUrl);
+  expect(actual).toStrictEqual(expected);
 });
