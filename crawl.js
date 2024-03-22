@@ -12,8 +12,13 @@ function getURLsFromHTML(htmlBody, baseUrl) {
   const elements = dom.window.document.querySelectorAll("a");
   for (const element of elements) {
     if (element.href.includes("https") || element.href.includes("http")) {
+      //absolute
       arrUrl.push(element.href);
     } else {
+      //relative
+      if (element.href.slice(0, 1) !== "/") {
+        continue;
+      }
       arrUrl.push(`${baseUrl}${element.href}`);
     }
   }
