@@ -1,15 +1,13 @@
-const { normalizeUrl, getURLsFromHTML } = require("./crawl");
-
-console.log(normalizeUrl("https://blog.boot.dev/path/"));
-console.log(
-  getURLsFromHTML(
-    `
-    <a href="https://boot.dev" id='xx'>Learn Backend Development</a>
-    <a href="https://boot.dev" id='xx'>Learn Backend Development</a>
-    <a href="https://boot.dev" id='xx'>Learn Backend Development</a>
-    <a href="/tracks/backend" id='xx'>Learn Backend Development</a>
-    <a href="https://boot.dev" id='xx'>Learn Backend Development</a>
-    `,
-    "https://boot.dev"
-  )
-);
+const { crawlPage } = require("./crawl");
+const { printReport } = require("./report");
+async function main() {
+  console.log(process.argv.length);
+  if (process.argv.length === 3) {
+    const baseUrl = process.argv[2];
+    const result = await crawlPage(baseUrl, baseUrl, {});
+    printReport(result);
+  } else {
+    throw new Error("You must pass a one argument");
+  }
+}
+main();

@@ -1,10 +1,10 @@
 const { test, expect } = require("@jest/globals");
-const { normalizeUrl, getURLsFromHTML } = require("./crawl.js");
+const { normalizeURL, getURLsFromHTML } = require("./crawl.js");
 
 test("normalize url", () => {
   const input = "https://blog.boot.dev/path/";
   const expected = "blog.boot.dev/path";
-  const actual = normalizeUrl(input);
+  const actual = normalizeURL(input);
   expect(actual).toBe(expected);
 });
 test("getURLsFromHTML absolute url", () => {
